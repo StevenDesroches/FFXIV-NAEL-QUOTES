@@ -1,0 +1,20 @@
+html {
+  height: 100%;
+}
+
+.hide{
+  display:none;
+}
+.show{
+  display:block;
+}
+
+.center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.text-center {
+  text-align: center;
+}
