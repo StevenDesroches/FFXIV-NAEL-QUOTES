@@ -1,89 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="./style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  </head>
-  <body style="margin-top: 20dvh" class="center">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="./style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body style="margin-top: 20dvh" class="center">
 
 
-      
-    <button id="start">Start</button>
-    <button id="restart" class="hide">Restart</button>
-    <div id="game">
+
+  <button id="start">Start</button>
+  <button id="restart" class="hide">Restart</button>
+
+
+
+  <div id="victory" class="hide">
+    <p class="text-center">YOU WON</p>
+    <p class="text-center _quote"></p>
+    <p class="text-center _correct_answer"></p>
+  </div>
+
+  <div id="defeat" class="hide">
+    <p class="text-center">YOU DIED</p>
+    <p class="text-center _quote"></p>
+    <p class="text-center _correct_answer"></p>
+  </div>
+
+
+
+  <div id="game">
     <p id="timer" class="hide text-center">00:07</p>
-
-    
     <p id="quote" class="hide text-center"></p>
-    
+
+
+
     <ul id="quote_part1" class="hide">
       <li>
-        <input id="part1_checkbox_in" name="part1" data-part="1" value="IN" type="radio" />
-        <label for="part1_checkbox_in">IN</label>
+        <div class="button">
+          <input id="part1_checkbox_in" name="part1" data-part="1" value="IN" type="radio" />
+          <label for="part1_checkbox_in">IN</label>
+        </div>
       </li>
       <li>
-        <input id="part1_checkbox_out" name="part1" data-part="1" value="OUT" type="radio" />
-        <label for="part1_checkbox_out">OUT</label>
+        <div class="button">
+          <input id="part1_checkbox_out" name="part1" data-part="1" value="OUT" type="radio" />
+          <label for="part1_checkbox_out">OUT</label>
+        </div>
       </li>
       <li>
-        <input id="part1_checkbox_stack" name="part1" data-part="1" value="STACK" type="radio" />
-        <label for="part1_checkbox_stack">STACK</label>
+        <div class="button">
+          <input id="part1_checkbox_stack" name="part1" data-part="1" value="STACK" type="radio" />
+          <label for="part1_checkbox_stack">STACK</label>
+        </div>
       </li>
       <li>
-        <input id="part1_checkbox_spread" name="part1" data-part="1" value="SPREAD" type="radio" />
-        <label for="part1_checkbox_spread">SPREAD</label>
+        <div class="button">
+          <input id="part1_checkbox_spread" name="part1" data-part="1" value="SPREAD" type="radio" />
+          <label for="part1_checkbox_spread">SPREAD</label>
+        </div>
       </li>
     </ul>
-    
+
     <ul id="quote_part2" class="hide">
       <li>
-        <input id="part2_checkbox_in" name="part2" data-part="2" value="IN" type="radio" />
-        <label for="part2_checkbox_in">IN</label>
+        <div class="button">
+          <input id="part2_checkbox_in" name="part2" data-part="2" value="IN" type="radio" />
+          <label for="part2_checkbox_in">IN</label>
+        </div>
       </li>
       <li>
-        <input id="part2_checkbox_out" name="part2" data-part="2" value="OUT" type="radio" />
-        <label for="part2_checkbox_out">OUT</label>
+        <div class="button">
+          <input id="part2_checkbox_out" name="part2" data-part="2" value="OUT" type="radio" />
+          <label for="part2_checkbox_out">OUT</label>
+        </div>
       </li>
       <li>
-        <input id="part2_checkbox_stack" name="part2" data-part="2" value="STACK" type="radio" />
-        <label for="part2_checkbox_stack">STACK</label>
+        <div class="button">
+          <input id="part2_checkbox_stack" name="part2" data-part="2" value="STACK" type="radio" />
+          <label for="part2_checkbox_stack">STACK</label>
+        </div>
       </li>
-         <li>
-        <input id="part2_checkbox_spread" name="part1" data-part="2" value="SPREAD" type="radio" />
-        <label for="part2_checkbox_spread">SPREAD</label>
+      <li>
+        <div class="button">
+          <input id="part2_checkbox_spread" name="part1" data-part="2" value="SPREAD" type="radio" />
+          <label for="part2_checkbox_spread">SPREAD</label>
+        </div>
       </li>
     </ul>
-    
+
     <ul id="quote_part3" class="hide">
       <li>
-        <input id="part3_checkbox_in" name="part3" data-part="3" value="IN" type="radio" />
-        <label for="part3_checkbox_in">IN</label>
+        <div class="button">
+          <input id="part3_checkbox_in" name="part3" data-part="3" value="IN" type="radio" />
+          <label for="part3_checkbox_in">IN</label>
+        </div>
       </li>
       <li>
-        <input id="part3_checkbox_out" name="part3" data-part="3" value="OUT" type="radio" />
-        <label for="part3_checkbox_out">OUT</label>
+        <div class="button">
+          <input id="part3_checkbox_out" name="part3" data-part="3" value="OUT" type="radio" />
+          <label for="part3_checkbox_out">OUT</label>
+        </div>
       </li>
       <li>
-        <input id="part3_checkbox_stack" name="part3" data-part="3" value="STACK" type="radio" />
-        <label for="part3_checkbox_stack">STACK</label>
+        <div class="button">
+          <input id="part3_checkbox_stack" name="part3" data-part="3" value="STACK" type="radio" />
+          <label for="part3_checkbox_stack">STACK</label>
+        </div>
       </li>
-         <li>
-        <input id="part3_checkbox_spread" name="part3" data-part="3" value="SPREAD" type="radio" />
-        <label for="part3_checkbox_spread">SPREAD</label>
+      <li>
+        <div class="button">
+          <input id="part3_checkbox_spread" name="part3" data-part="3" value="SPREAD" type="radio" />
+          <label for="part3_checkbox_spread">SPREAD</label>
+        </div>
       </li>
     </ul>
-    </div>
+    <p id="clicked_answers" class="text-center"></p>
+  </div>
 
-    <div id="victory" class="hide">
-      <p class="text-center">YOU WON</p>
-    </div>
-    
-    <div id="defeat" class="hide">
-      <p class="text-center">YOU DIED</p>
-    </div>
-   
-    
-    <script src="./script.js"></script>
-  </body>
+  <script src="./script.js"></script>
+</body>
+
 </html>

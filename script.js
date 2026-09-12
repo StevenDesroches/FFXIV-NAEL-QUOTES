@@ -1,20 +1,20 @@
 const QUOTES = [
-    {
-        string: "Unbending iron, take fire and descend!",
-        answers: ["OUT", "STACK", "SPREAD"]
-    },
-    {
-        string: "Unbending iron, descend with fiery edge!",
-        answers: ["OUT", "SPREAD", "STACK"]
-    },
-    {
-        string: "From hallowed moon I bare iron, in my descent to wield!",
-        answers: ["IN", "OUT", "SPREAD"]
-    },
-    {
-        string: "From hallowed moon I descend, upon burning earth to tread!",
-        answers: ["IN", "SPREAD", "STACK"]
-    },
+  {
+    string: "Unbending iron, take fire and descend!",
+    answers: ["OUT", "STACK", "SPREAD"]
+  },
+  {
+    string: "Unbending iron, descend with fiery edge!",
+    answers: ["OUT", "SPREAD", "STACK"]
+  },
+  {
+    string: "From hallowed moon I bare iron, in my descent to wield!",
+    answers: ["IN", "OUT", "SPREAD"]
+  },
+  {
+    string: "From hallowed moon I descend, upon burning earth to tread!",
+    answers: ["IN", "SPREAD", "STACK"]
+  },
 ]
 
 let didWeWin = false;
@@ -35,100 +35,122 @@ let gameEl = document.getElementById('game');
 let victoryEl = document.getElementById('victory');
 let defeatEl = document.getElementById('defeat');
 
+let clickedAnswers = [];
+let clickedAnswersEl = document.getElementById('clicked_answers');
+
 function initRadios() {
-    let nodeList = document.querySelectorAll('input[type="radio"]');
-    nodeList.forEach(function (radio) {
-        radio.addEventListener('click', function (event) {
+  let nodeList = document.querySelectorAll('input[type="radio"]');
+  nodeList.forEach(function (radio) {
+    radio.addEventListener('click', function (event) {
 
-          let value = this.value;
-          let partNumber = parseInt(this.getAttribute('data-part'));
-          let answerIndex = partNumber - 1;
+      let value = this.value;
+      let partNumber = parseInt(this.getAttribute('data-part'));
+      let answerIndex = partNumber - 1;
 
-          let nodeGroupList = document.querySelectorAll(`input[type="radio"][data-part="${partNumber}"]`);
-          nodeGroupList.forEach(function(groupRadio){
-            groupRadio.disabled = true;
-          });
+      let nodeGroupList = document.querySelectorAll(`input[type="radio"][data-part="${partNumber}"]`);
+      nodeGroupList.forEach(function (groupRadio) {
+        groupRadio.disabled = true;
+      });
 
-          
-          
+      clickedAnswers.push(value);
 
-          setTimeout(()=>{
 
-            if(currentQuote.answers[answerIndex] == value){
+      setTimeout(() => {
+        if (currentQuote.answers[answerIndex] == value) {
+          switch (partNumber) {
+            case 1:
+              quotePart1El.classList.add('hide');
+              quotePart2El.classList.remove('hide');
+              break;
+            case 2:
+              quotePart2El.classList.add('hide');
+              quotePart3El.classList.remove('hide');
+              break;
+            case 3:
+              game.classList.add('hide');
+              victoryEl.classList.remove('hide');
+              didWeWin = true;
 
-              switch(partNumber){
-                case 1:
-                  quotePart1El.classList.add('hide');
-                  quotePart2El.classList.remove('hide');
-                  break;
-                case 2:
-                  quotePart2El.classList.add('hide');
-                  quotePart3El.classList.remove('hide');
-                  break;
-                case 3:
-                  game.classList.add('hide');
-                  victoryEl.classList.remove('hide');
-                  didWeWin = true;
-                  break;
-              }
-              
-              
-              
-            } else {
-                  game.classList.add('hide');
-                  defeatEl.classList.remove('hide');
-            }
-          }, 500)
-            
-          
-        });
+              let quoteElList = victoryEl.querySelectorAll("._quote");
+              quoteElList.forEach(function (quoteEl) {
+                quoteEl.textContent = currentQuote.string;
+              })
+              let answerElList = victoryEl.querySelectorAll("._correct_answer");
+              answerElList.forEach(function (answerEl) {
+                answerEl.textContent = currentQuote.answers.join(' > ');
+              })
+              break;
+          }
+        } else {
+          game.classList.add('hide');
+          defeatEl.classList.remove('hide');
+
+          let quoteElList = defeatEl.querySelectorAll("._quote");
+          quoteElList.forEach(function (quoteEl) {
+            quoteEl.textContent = currentQuote.string;
+          })
+          let answerElList = defeatEl.querySelectorAll("._correct_answer");
+          answerElList.forEach(function (answerEl) {
+            answerEl.textContent = currentQuote.answers.join(' > ');
+          })
+        }
+
+        clickedAnswersEl.textContent = clickedAnswers.join(' > ');
+
+      }, 500)
+
+
     });
+  });
 }
 
 
 function init() {
-    startEl.addEventListener('click', () => start());
-    restartEl.addEventListener('click', () => start());
+  startEl.addEventListener('click', () => start());
+  restartEl.addEventListener('click', () => start());
 
   initRadios();
 }
 init();
 
 
-function resetRadios(){
+function resetRadios() {
   let nodeList = document.querySelectorAll('input[type="radio"]');
-   nodeList.forEach(function (radio) {
-     radio.checked = false;
-     radio.disabled = false;
-   });
+  nodeList.forEach(function (radio) {
+    radio.checked = false;
+    radio.disabled = false;
+  });
 }
 
 function start() {
 
-    resetRadios();
+  resetRadios();
 
-    currentQuote = QUOTES[Math.floor(Math.random() * QUOTES.length)];
-    quoteEl.textContent = currentQuote.string;
+  currentQuote = QUOTES[Math.floor(Math.random() * QUOTES.length)];
+  quoteEl.textContent = currentQuote.string;
 
-    startTimer(SECONDS, timerEl);
+  startTimer(SECONDS, timerEl);
 
-    startEl.classList.add('hide');
-    restartEl.classList.remove('hide');
-    timerEl.classList.remove('hide');
-    quoteEl.classList.remove('hide');
+  startEl.classList.add('hide');
+  restartEl.classList.remove('hide');
+  timerEl.classList.remove('hide');
+  quoteEl.classList.remove('hide');
 
-    quotePart1El.classList.remove('hide');
-    quotePart2El.classList.add('hide');
-    quotePart3El.classList.add('hide');
-  
-    game.classList.remove('hide');
-    victoryEl.classList.add('hide');
-    defeatEl.classList.add('hide');
+  quotePart1El.classList.remove('hide');
+  quotePart2El.classList.add('hide');
+  quotePart3El.classList.add('hide');
+
+  game.classList.remove('hide');
+  victoryEl.classList.add('hide');
+  defeatEl.classList.add('hide');
+
+  clickedAnswersEl.textContent = '';
+  clickedAnswers = [];
 
   didWeWin = false;
-  
 
-    
+
+
 
 
 
@@ -139,31 +161,31 @@ function start() {
 
 
 function startTimer(duration, display) {
-    let timer = duration, minutes, seconds;
-    let tickTimer = function () {
-        minutes = parseInt(timer / 60, 10)
-        seconds = parseInt(timer % 60, 10);
+  let timer = duration, minutes, seconds;
+  let tickTimer = function () {
+    minutes = parseInt(timer / 60, 10)
+    seconds = parseInt(timer % 60, 10);
 
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    seconds = seconds < 10 ? "0" + seconds : seconds;
 
-        display.textContent = minutes + ":" + seconds
-    };
+    display.textContent = minutes + ":" + seconds
+  };
 
-    //tickTimer();
-    if (TIMER_INTERVAL) {
-        clearInterval(TIMER_INTERVAL);
-        TIMER_INTERVAL = null;
+  //tickTimer();
+  if (TIMER_INTERVAL) {
+    clearInterval(TIMER_INTERVAL);
+    TIMER_INTERVAL = null;
+  }
+  TIMER_INTERVAL = setInterval(function () {
+    tickTimer();
+    if (--timer < 0) {
+      timer = 0;
+      if (!didWeWin) {
+        game.classList.add('hide');
+        defeatEl.classList.remove('hide');
+      }
+
     }
-    TIMER_INTERVAL = setInterval(function () {
-        tickTimer();
-        if (--timer < 0) {
-            timer = 0;
-          if(!didWeWin){
-          game.classList.add('hide');
-          defeatEl.classList.remove('hide');
-          }
-
-        }
-    }, 1000);
+  }, 1000);
 }
